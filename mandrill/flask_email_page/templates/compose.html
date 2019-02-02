@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block title %}<title display="none">Compose an Email</title>{% endblock %}
+
+{% block head %}
+{{ super() }}
+<style>
+.loader {
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid #3498db;
+  width: 150px;
+  height: 150px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<br /><br />
+
+
+<form method="post">
+
+<div class="container" id="main_section">
+
+<div class="row">
+  <div class="col">
+    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="From email" name="from_email">
+        <small id="emailHelp" class="form-text text-muted">* requirement here</small>
+  </div>
+
+  <div class="col">
+    <input type="text" class="form-control" placeholder="From Name" name="from_name">
+  </div>
+
+  <div class="w-100"></div> <br />
+
+  <div class="col">
+    <input type="text" class="form-control" placeholder="Subject Text" name="subject_text">
+  </div>
+
+  <div class="col">
+    <input type="text" class="form-control" placeholder="Preview Text" name="prev_text">
+  </div>
+
+  <div class="w-100"></div>
+
+  <div class="col">
+    <br />
+    <h4>Email Body</h4>
+    <textarea id = "summernote" name = "body_text">{{ body_text }}</textarea>
+    <div id="summernote"></div>
+  </div>
+
+  <div class="w-100"></div>
+    <div class="col-1"></div>
+    <div class="col-sm">
+      <button class="btn btn-secondary" onclick="renderHTML()" type="button"> Preview
+    </button>
+    </div>
+    <div class="col-6"></div>
+    <div class="col-sm">
+      <button class="btn btn-secondary" onclick="hide_main()" type="submit" name="action" value = "Submit">Submit
+    </button>
+    </div>
+
+
+  <div class="w-100"></div> <br />
+
+  <div class="col">
+    <h4>Preview of Email Body</h4><br />
+    <div id="preview"></div>
+  </div>
+
+</div>
+</div>
+</form>
+
+
+<div class="loader" id="loader" style="margin: 0; position: absolute; top: 35%; left: 35%; display: none;"></div>
+
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#summernote').summernote({
+    tabsize: 2,
+    height: 250,
+    toolbar: [
+        // [groupName, [list of button]]
+        ['style', ['bold', 'italic', 'clear']],
+        ['link', ['link', 'unlink']],
+        ['para', ['ul']]
+    ]
+    });
+});
+</script>
+
+<script type="text/javascript">
+        function renderHTML(){
+        var html = document.getElementById("summernote").value
+        document.getElementById("preview").innerHTML = html;
+        }
+</script>
+
+<script type="text/javascript">
+function hide_main() {
+  var x = document.getElementById("main_section");
+  { x.style.display = "none"; }
+  var x = document.getElementById("loader");
+  { x.style.display = "block"; }
+}
+</script>
+
+
+
+{% endblock %}

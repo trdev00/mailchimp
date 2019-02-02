@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %} <title display="none">Mandrill Output</title> {% endblock %}
+
+{% block content %}
+<br>
+
+<div class="container">
+    <div class="row">
+        <br><br>
+        <h1>Emails Sent</h1>
+        {{ result_list }}
+        <br><br>
+        <meta rel = "prefetch" http-equiv = "refresh" content = "5; URL = /compose.html">
+        <meta name = "keywords" content = "automatic redirection">
+    </div>
+</div>
+
+{% endblock %}
